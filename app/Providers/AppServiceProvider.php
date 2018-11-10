@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Model\TypeProduct;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('layouts.header', function($view){
+            $parent = TypeProduct::where('id_parent',0)->get();
+            $type = TypeProduct::where('id_parent', '!=', 0)->get();
+            $view->with(['parent' => $parent, 'type' => $type]);
+        });
     }
 
     /**
