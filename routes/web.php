@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','PageController@index')->name('trangchu');
+Route::get('productType/{id}','PageController@type_product')->name('productType');
+Route::get('login', 'LoginController@index')->name('login');
+Route::get('register', 'RegisterController@index')->name('register');
+Route::post('postRegister', 'RegisterController@store')->name('register.store');
