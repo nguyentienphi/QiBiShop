@@ -17,7 +17,6 @@
 		</ul>
 		<div id="myTabContent" class="tab-content">
 			<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
-				
 				<div class="agile_top_brands_grids">
 					@foreach($product as $products)
 					<div class="col-md-4 top_brand_left">
@@ -70,9 +69,7 @@
 					<div class="clearfix"> </div>
 				</div>
 			</div>
-			
 			<div role="tabpanel" class="tab-pane fade" id="tours" aria-labelledby="tours-tab">
-				
 				<div class="agile_top_brands_grids">
 					@foreach($discount as $discounts)
 					<div class="col-md-4 top_brand_left">

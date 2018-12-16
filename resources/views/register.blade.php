@@ -15,28 +15,23 @@
 		<div class="container">
 			<h2>Đăng Ký</h2>
 			<div class="login-form-grids">
-				<h5>Thông tin hồ sơ</h5>
-				<form action="{{route('register.store')}}" method="POST">
-					<input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
-					<input type="text" placeholder="Name..."  class="form-control" name="name">
-					<input type="text" placeholder="Số CMND..."  class="form-control">
-					<br>
-					<input type="text" placeholder="Địa chỉ..." class="form-control">
-					<br>
-					<input type="text" placeholder="Số điện thoại..."  class="form-control">
-					<br>
-					<input id="male" type="radio" name="gender" value="nam" checked="checked">
-				    <label for="male">Nam</label>
-				    <input id="female" type="radio" name="gender" value="nu">
-				    <label for="female">Nữ</label>
-				    <br>
-				    <input type="date" name="ngaysinh" placeholder="Ngày sinh..." style="margin-top: 10px" class="form-control">
-					<br>
-					<input type="email" placeholder="Email Address" required=" " class="form-control" name="email">
-					<input type="password" placeholder="Password" required=" " class="form-control">
-					<input type="password" placeholder="Password Confirmation" required=" " class="form-control">
-					<input type="submit" value="Register">
-				</form>
+				<h5>Thông tin đăng nhập</h5>
+				{{ Form::open(['route' => 'register.store']) }}
+					{{ Form::text('username', '', ['class' => 'form-control', 'required', 'placeholder' => 'User name...']) }}
+					@if($errors->has('username'))
+						<p class="error">
+							{{ $errors->first('username') }}
+						</p>
+					@endif()
+					{{ Form::password('password', ['class' => 'form-control', 'required', 'placeholder' => 'password...']) }}
+					@if($errors->has('password'))
+						<p class="error">
+							{{ $errors->first('password') }}
+						</p>
+					@endif()
+					{{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Password Confirmation...']) }}
+					{{ Form::submit('Continue', ['class' => 'btn btn-primary']) }}
+				{{ Form::close() }}
 			</div>
 			<div class="register-home">
 				<a href="{{route('trangchu')}}">Home</a>
