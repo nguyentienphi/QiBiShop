@@ -9,6 +9,7 @@ use DB;
 class Product extends Model
 {
 	public $timestamps = true;
+    protected $fillable = ['id_type', 'name', 'image', 'price', 'id_unit'];
     public function discounts()
     {
     	return $this->hasMany(Discount::class, 'id_product', 'id');
@@ -25,18 +26,19 @@ class Product extends Model
     	$product = DB::table('products')
     	->leftjoin('discounts', 'products.id', '=', 'discounts.id_product')
     	->where('discounts.id', '=',NULL)
+        ->select('products.*')
     	->paginate(15);
     	return $product;
     }
 
     public function bills()
     {
-    	return $this->belongsToMany(Bill::class, 'bill_details');
+    	return $this->belongsToMany(Bill::class, 'bill_details', 'id_product', 'id_bill')->withPivot('quantity', 'price');
     }
 
     public function storeInventories()
     {
-    	return $this->belongsToMany(Store::class, 'inventories', 'id_store', 'id_product');
+    	return $this->belongsToMany(Store::class, 'inventories', 'id_product', 'id_store');
     }
 
     public function unit()
@@ -46,7 +48,7 @@ class Product extends Model
 
     public function stores()
     {
-    	return $this->belongsToMany(Store::class, 'products_stores', 'id_store', 'id_product');
+    	return $this->belongsToMany(Store::class, 'product_store', 'id_product', 'id_store')->withPivot('quantity', 'import_price');
     }
 
     public function typeProduct()

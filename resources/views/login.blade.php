@@ -4,6 +4,11 @@
 	<div class="container">
 		<h2>Đăng nhập</h2>
 		<div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
+			@if(session()->has('errors'))
+				<div class="aler alert-danger">
+					<span>{{session('errors')}}</span>
+				</div>
+			@endif
 			{{ Form::open(['route' => 'postLogin', 'method' => 'post']) }}
 				{{ Form::text('username', '', ['class' => 'form-control', 'placeholder' => 'User name...', 'required']) }}
 				{{ Form::password('password', ['class' => 'form-control', 'required', 'placeholder' => 'Password...']) }}

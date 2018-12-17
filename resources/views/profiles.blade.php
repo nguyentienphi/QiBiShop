@@ -13,39 +13,34 @@
 		<div class="container">
 			<h2>Đăng Ký</h2>
 			<div class="login-form-grids">
-				<div>
-					@if(session()->has('success'))
-						<p class="alert alert-success">{{ session('success') }}</p>
-					@endif()
-				</div>
 				<h5>Thông tin hồ sơ</h5>
 				{{ Form::open(['route' => 'profile.store']) }}
 					{{ Form::text('name', '', ['class' => 'form-control', 'required', 'placeholder' => 'Name...']) }}
 					{{ Form::hidden('user_id', $_GET['user']) }}
 					@if($errors->has('name'))
-						<span class="error">
+						<span style="color: red">
 							{{ $errors->first('name') }}
 						</span>
 					@endif()
 					<br>
 					{{ Form::text('nic_number', '', ['class' => 'form-control', 'required', 'placeholder' => 'Số CMND...']) }}
 					@if($errors->has('nic_number'))
-						<span class="error">
+						<span style="color: red">
 							{{ $errors->first('nic_number') }}
 						</span>
 					@endif()
 					<br>
 					{{ Form::text('address', '', ['class' => 'form-control', 'required', 'placeholder' => 'Địa chỉ...']) }}
 					@if($errors->has('address'))
-						<p class="error">
+						<p style="color: red">
 							{{ $errors->first('address') }}
 						</p>
 					@endif()
 					<br>
 					{{ Form::text('phone_number', '', ['class' => 'form-control', 'required', 'placeholder' => 'Số điện thoại...']) }}
-					@if($errors->has('phone'))
-						<p class="error">
-							{{ $errors->first('phone') }}
+					@if($errors->has('phone_number'))
+						<p style="color: red">
+							{{ $errors->first('phone_number') }}
 						</p>
 					@endif()
 					<br>

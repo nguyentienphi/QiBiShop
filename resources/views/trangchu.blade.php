@@ -10,6 +10,23 @@
 	</ul>
 </div>
 <div class="grid_3 grid_5">
+	<div class="modal fade" id="myModal" role="dialog">
+	    <div class="modal-dialog">
+	    	<div class="modal-content">
+		        <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        <h4 class="modal-title">Thông báo</h4>
+		        </div>
+		        <div class="modal-body">
+		        	<p>Bạn cần đăng nhập để thực hiện dịch vụ</p>
+		        </div>
+		        <div class="modal-footer">
+		        	<a href="{{ route('login') }} " class="btn btn-primary">Đăng nhập</a>
+		        	<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+		        </div>
+	    	</div> 
+	    </div>
+	</div>
 	<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 		<ul id="myTab" class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#expeditions" id="expeditions-tab" role="tab" data-toggle="tab" aria-controls="expeditions" aria-expanded="true">Sản Phẩm</a></li>
@@ -26,7 +43,7 @@
 									<figure>
 										<div class="snipcart-item block">
 											<div class="snipcart-thumb">
-												<a href="products.html"><img src="storage/image/product/{{$products->image}}" alt=" " height="200px" class=""/> 
+												<a href="{{route('product-detail', $products->id)}}"><img src="storage/image/product/{{$products->image}}" alt=" " height="200px" class=""/> 
 													
 												</a>
 												<p>{{$products->name}}</p>
@@ -37,25 +54,16 @@
 													<i class="fa fa-star blue-star" aria-hidden="true"></i>
 													<i class="fa fa-star gray-star" aria-hidden="true"></i>
 												</div>
-												<h4>{{$products->price}}
-													
-												</h4>
+												<p><strong>{{$products->price}}</strong></p>
 											</div>
 											<div class="snipcart-details top_brand_home_details" >
-												<form action="#" method="post">
-													<fieldset>
-														<input type="hidden" name="cmd" value="_cart" />
-														<input type="hidden" name="add" value="1" />
-														<input type="hidden" name="business" value=" " />
-														<input type="hidden" name="item_name" value="Pepsi soft drink" />
-														<input type="hidden" name="amount" value="40.00" />
-														<input type="hidden" name="discount_amount" value="1.00" />
-														<input type="hidden" name="currency_code" value="USD" />
-														<input type="hidden" name="return" value=" " />
-														<input type="hidden" name="cancel_return" value=" " />
-														<input type="submit" name="submit" value="Add to cart" class="button" style="margin-top: 40px"/>
-													</fieldset>
-												</form>
+												<div class="snipcart-details top_brand_home_details">
+													@guest
+														<a href="" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Thêm vào giỏ hàng</a>
+													@else
+														<a href="{{route('themgiohang', $products->id)}}" class="btn btn-primary">Thêm vào giỏ hàng</a>
+													@endguest
+												</div>
 											</div>
 										</div>
 									</figure>
@@ -82,7 +90,7 @@
 									<figure>
 										<div class="snipcart-item block">
 											<div class="snipcart-thumb">
-												<a href="products.html"><img src="storage/image/product/{{$discounts->image}}" alt=" " height="200px" class=""/> 
+												<a href="{{route('product-detail', $discounts->id)}}"><img src="storage/image/product/{{$discounts->image}}" alt=" " height="200px" class=""/> 
 													
 												</a>
 												<p>{{$discounts->name}}</p>
@@ -99,20 +107,11 @@
 												</h4>
 											</div>
 											<div class="snipcart-details top_brand_home_details">
-												<form action="#" method="post">
-													<fieldset>
-														<input type="hidden" name="cmd" value="_cart" />
-														<input type="hidden" name="add" value="1" />
-														<input type="hidden" name="business" value=" " />
-														<input type="hidden" name="item_name" value="Pepsi soft drink" />
-														<input type="hidden" name="amount" value="40.00" />
-														<input type="hidden" name="discount_amount" value="1.00" />
-														<input type="hidden" name="currency_code" value="USD" />
-														<input type="hidden" name="return" value=" " />
-														<input type="hidden" name="cancel_return" value=" " />
-														<input type="submit" name="submit" value="Add to cart" class="button" />
-													</fieldset>
-												</form>
+												@guest
+													<a href="" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Thêm vào giỏ hàng</a>
+												@else
+													<a href="{{route('themgiohang', $discounts->id)}}" class="btn btn-primary">Thêm vào giỏ hàng</a>
+												@endguest
 											</div>
 										</div>
 									</figure>

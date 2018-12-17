@@ -3394,4 +3394,9 @@ td.invert-image a img {
 .error{
     color: red;
 }
-
+.list_cart{
+    margin: 2px;
+}
+.view-cart{
+    margin:10px 50px 10px 100px;
+}
