@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Store extends Model
 {
+    protected $fillable = ['id_region', 'name', 'address', 'phone_number', 'image'];
+
     public function productInventorys()
     {
     	return $this->belongsToMany(Product::class, 'inventories', 'id_product', 'id_store');
@@ -18,7 +20,7 @@ class Store extends Model
 
     public function products()
     {
-    	return $this->belongsToMany(Product::class, 'products_stores', 'id_product', 'id_store');
+    	return $this->belongsToMany(Product::class, 'product_store', 'id_store', 'id_product')->withPivot('quantity', 'import_price');
     }
 
     public function region()

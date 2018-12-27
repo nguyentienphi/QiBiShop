@@ -1,8 +1,25 @@
 @extends('layouts.header')
+@section('title', 'Sản phẩm theo danh mục')
 @section('content')
 	<div id="myTabContent" class="tab-content">
 			<div role="tabpanel" class="tab-pane fade in active" id="expeditions" aria-labelledby="expeditions-tab">
-				
+		<div class="modal fade" id="myModal" role="dialog">
+		    <div class="modal-dialog">
+		    	<div class="modal-content">
+			        <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal">&times;</button>
+				        <h4 class="modal-title">Thông báo</h4>
+			        </div>
+			        <div class="modal-body">
+			        	<p>Bạn cần đăng nhập để thực hiện dịch vụ</p>
+			        </div>
+			        <div class="modal-footer">
+			        	<a href="{{ route('login') }} " class="btn btn-primary">Đăng nhập</a>
+			        	<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+			        </div>
+		    	</div> 
+		    </div>
+		</div>
 				<div class="agile_top_brands_grids">
 					@foreach($product_type as $product_types)
 					<div class="col-md-4 top_brand_left">
@@ -12,7 +29,7 @@
 									<figure>
 										<div class="snipcart-item block">
 											<div class="snipcart-thumb">
-												<a href="products.html"><img src="/storage/image/product/{{$product_types->image}}" alt=" " height="200px" class=""/> 
+												<a href="{{ route('post-detail', $product_types->id) }}"><img src="/storage/image/product/{{$product_types->image}}" alt=" " height="200px" class=""/> 
 													
 												</a>
 												<p>{{$product_types->name}}</p>
@@ -28,20 +45,11 @@
 												</h4>
 											</div>
 											<div class="snipcart-details top_brand_home_details" >
-												<form action="#" method="post">
-													<fieldset>
-														<input type="hidden" name="cmd" value="_cart" />
-														<input type="hidden" name="add" value="1" />
-														<input type="hidden" name="business" value=" " />
-														<input type="hidden" name="item_name" value="Pepsi soft drink" />
-														<input type="hidden" name="amount" value="40.00" />
-														<input type="hidden" name="discount_amount" value="1.00" />
-														<input type="hidden" name="currency_code" value="USD" />
-														<input type="hidden" name="return" value=" " />
-														<input type="hidden" name="cancel_return" value=" " />
-														<input type="submit" name="submit" value="Add to cart" class="button" style="margin-top: 40px"/>
-													</fieldset>
-												</form>
+												@guest
+													<a href="" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Thêm vào giỏ hàng</a>
+												@else
+													<a href="{{route('themgiohang', $product_types->id)}}" class="btn btn-primary">Thêm vào giỏ hàng</a>
+												@endguest
 											</div>
 										</div>
 									</figure>

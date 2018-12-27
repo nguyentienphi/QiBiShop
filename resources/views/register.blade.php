@@ -9,13 +9,16 @@
 			</ol>
 		</div>
 	</div>
-<!-- //breadcrumbs -->
-<!-- register -->
 	<div class="register">
 		<div class="container">
 			<h2>Đăng Ký</h2>
 			<div class="login-form-grids">
 				<h5>Thông tin đăng nhập</h5>
+				<div>
+					@if(session()->has('success'))
+						<p class="alert alert-success">{{ session('success') }}</p>
+					@endif()
+				</div>
 				{{ Form::open(['route' => 'register.store']) }}
 					{{ Form::text('username', '', ['class' => 'form-control', 'required', 'placeholder' => 'User name...']) }}
 					@if($errors->has('username'))

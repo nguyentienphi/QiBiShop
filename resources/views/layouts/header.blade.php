@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>QibiShop</title>
+	<title>@yield('title')</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="keywords" content="Super Market Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -27,20 +27,20 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 </script>
 </head>
 <body>
-	<div class="agileits_header">
+		<div class="agileits_header">
 		<div class="container">
 			<div class="w3l_offers">
 				<p><a href="{{route('trangchu')}}">QiBiShop</a></p>
 			</div>
+			<div class="agile-login">
 				@guest
-				<div class="agile-login">
 					<ul>
 						<li><a href="{{route('register')}}"> Đăng Ký </a></li>
 						<li><a href="{{route('login')}}"> Đăng Nhập </a></li>
 						<li><a href="contact.html"> Giúp Đỡ ! </a></li>
 						<li>
 							<ul> 
-								<li class="dropdown"> <a href="" class="dropdown-toggle"data-toggle="modal" data-target="#myModal">                            <i class="fa fa-cart-arrow-down" style="font-size: 20px"></i><span class="badge">10</span></a> 
+								<li class="dropdown"> <a href="" class="dropdown-toggle" data-toggle="modal" data-target="#myModal"><i class="fa fa-cart-arrow-down" style="font-size: 20px"></i></a> 
 									<div class="modal fade" id="myModal" role="dialog">
 									    <div class="modal-dialog">
 									    	<div class="modal-content">
@@ -52,74 +52,64 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 										        	<p>Bạn cần đăng nhập để thực hiện dịch vụ</p>
 										        </div>
 										        <div class="modal-footer">
-										        	<a href="{{ route('login') }}" class="btn btn-primary">Đăng nhập</a>
+										        	<a href="{{ route('login') }} " class="btn btn-primary">Đăng nhập</a>
 										        	<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 										        </div>
 									    	</div> 
 									    </div>
   									</div>
- 
+  
+</div>
 								</li> 
 							</ul> 
 						</li>
 					</ul>
-				</div>
 				@else
 					<ul>
 					<li><a href="contact.html"> Giúp Đỡ ! </a></li>
 					<li>
 						<ul> 
-							<li class="dropdown"> <a href="" class="dropdown-toggle" data-toggle="dropdown">                            <i class="fa fa-cart-arrow-down" style="font-size: 20px"></i><span class="badge">10</span></a> 
-								<ul class="dropdown-menu scrolling-wrapper" > 
-									<li style="width: 350px">
-										<div style="float: left; width: 70px">
-											<img src="/storage/image/product/banhcusta.jpg" width="70px" style="float: left">
-										</div>
-									 	<div style="float: right; width: 230px" id="list-cart">
-									 		<ul> 
-										 		<li style="margin:2px">Bánh Gạo Nhật Ichi Vị Mật Ong Kameda Gói 180g</li>
-										 		<br>
-										 		<li style="margin:2px">Giá : 75000</li>
-										 		<li style="margin:2px">Số lượng : 5</li>
-										 		<br>
-										 		<li style="margin:2px">
-										 			Số tiền : 350000
-										 		</li>
-									 		</ul>
-									 	</div>
-									 	
-									</li>
-									<hr>
-									<li style="width: 350px">
-										<div style="float: left; width: 70px">
-											<img src="/storage/image/product/banhcusta.jpg" width="70px" style="float: left">
-										</div>
-									 	<div style="float: right; width: 230px" id="list-cart">
-									 		<ul> 
-										 		<li style="margin:2px">Bánh Gạo Nhật Ichi Vị Mật Ong Kameda Gói 180g</li>
-										 		<br>
-										 		<li style="margin:2px">Giá : 75000</li>
-										 		<li style="margin:2px">Số lượng : 5</li>
-										 		<br>
-										 		<li style="margin:2px">
-										 			Số tiền : 350000
-										 		</li>
-									 		</ul>
-									 	</div>
-									</li>
-									<hr>
-									<li>
-										<div style="width: 120px; float: left;">
-											<h5 >
-												<a href="" style="color: blue">Xem giỏ hàng <span>
-													<i class="fa fa-sign-out"></i>
-												</span></a>
-											</h5>
-										</div>
-										<div style="width: 200px; float: left">
-											<h5 style="text-align: center;">Tổng tiền : 1000000</h5>
-										</div>
-									</li>
+							
+							<li class="dropdown"> <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cart-arrow-down" style="font-size: 20px"></i>
+								@if(session()->has('cart'))
+									<span class="badge">{{$cart->totalQuanty}}</span>
+								@endif
+							</a> 
+								<ul class="dropdown-menu" > 
+									@if(session()->has('cart'))
+										@foreach($product_cart as $products)
+											<li style="width: 350px">
+												<div style="float: left; width: 70px">
+													<img src="/storage/image/product/{{ $products['items']['image'] }}" width="70px" style="float: left">
+												</div>
+											 	<div style="float: right; width: 230px" id="list-cart">
+											 		<ul> 
+												 		<li class="list_cart">{{ $products['items']['name'] }}</li>
+												 		<br>
+												 		<li class="list_cart">Đơn giá: {{$products['items']['price']}}</li>
+												 		<li class="list_cart">Số lượng : {{$products['quanty']}}</li>
+												 		<br>
+												 		<li class="list_cart">
+												 			Thành tiền :  {{$products['price']}}
+												 		</li>
+											 		</ul>
+											 	</div>
+											</li>
+											<hr>
+										@endforeach()
+										<li>
+											<div style="width: 120px; float: left;">
+												<h5 >
+													<a href="{{ route('view-cart') }}" style="color: blue">Xem giỏ hàng <span>
+														<i class="fa fa-sign-out"></i>
+													</span></a>
+												</h5>
+											</div>
+											<div style="width: 200px; float: left">
+												<p style="text-align: center;"><strong>Tổng tiền : {{$toltalPrice}}</strong></p>
+											</div>
+										</li>
+									@endif
 								</ul> 
 							</li> 
 						</ul> 
@@ -136,9 +126,10 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 					</ul>
 			</div>
 			@endguest
-	</div>
+			</div>
 				<div class="clearfix"> </div>
 			</div>
+		</div>
 		<div class="logo_products">
 			<div class="container">
 				<div class="w3ls_logo_products_left1">
@@ -151,13 +142,11 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 					<h1><a href="{{route('trangchu')}}">QiBi Shop</a></h1>
 				</div>
 				<div class="w3l_search">
-					<form action="#" method="post">
-						<input type="search" name="Search" placeholder="Nhập thông tin sản phẩm..." required="">
-						<button type="submit" class="btn btn-default search" aria-label="Left Align">
-							<i class="fa fa-search" aria-hidden="true"> </i>
-						</button>
+					{{ Form::open(['route' => 'search']) }}
+						{{ Form::search('search', '', ['placeholder' => 'Nhập thông tin tìm kiếm']) }}
+						{{ Form::button('<i class="fa fa-search" aria-hidden="true"></i>', ['class' => 'btn btn-default search', 'aria-label' => 'Left Align', 'type' => 'submit']) }}
 						<div class="clearfix"></div>
-					</form>
+					{{ Form::close() }}
 				</div>
 
 				<div class="clearfix"> </div>
@@ -301,8 +290,8 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 		});
 
 	});
-</script>	
-<!-- //main slider-banner --> 
+</script>
+<script type="text/javascript" src="{{asset('js/qibishop.js')}}"></script>	
 <script>
 $(document).ready( function(){
 	$('.dropdown-menu').scroll(function(){
