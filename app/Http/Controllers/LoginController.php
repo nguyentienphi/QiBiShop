@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\User;
 use Auth;
+use Session;
 
 class LoginController extends Controller
 {
@@ -19,15 +20,28 @@ class LoginController extends Controller
     		'username' => $request->username,
     		'password' => $request->password
     	];
-    	if(Auth::attempt($input) && Auth::user()->role_id == config('shop.member'))
+    	if(Auth::attempt($input))
     	{
-    		return redirect()->route('trangchu');
-    	}
+            if(Auth::user()->role_id == config('shop.member')){
+                return redirect()->route('trangchu');
+            } else{
+                return redirect()->route('admin');
+            }
+    	} else {
+            return back()->with('errors', 'Sai tên tài khoản hoặc mật khẩu!');
+        }
     }
 
     public function getLogout(Request $request)
     {
-    	Auth::logout();
-    	return redirect()->route('trangchu');
+    	if(Auth::check() && Auth::user()->role_id == 1)
+        {
+            Auth::logout();
+            Session::forget('cart');
+            return redirect()->route('trangchu');
+        } else {
+            Auth::logout();
+            return redirect()->route('login');
+        }
     }
 }

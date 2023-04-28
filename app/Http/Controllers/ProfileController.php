@@ -16,12 +16,19 @@ class ProfileController extends Controller
 
     public function store(RegisterRequest $request)
     {
-        $input = $request->except('_token');
-        $input['id_user'] = $request->user_id;
-        Profile::create($input);
+        Profile::create([
+            'id_user' => $request->user_id,
+            'name' => $request->name,
+            'nic_number' => $request->nic_number,
+            'address' => $request->address,
+            'phone_number' => $request->phone_number,
+            'birthday' => $request->birthday,
+            'gender' => $request->gender
+        ]);
         Customer::create([
             'id_user' => $request->user_id
         ]);
-        return back()->with(['success' => 'Đăng ký thành công']);
+        $request->session()->flash('sucess', 'Đăng ký thành công');
+        return redirect()->route('register');
     }
 }
